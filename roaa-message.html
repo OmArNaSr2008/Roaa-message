@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d0d1a">
+<title>For Roaa 🌹</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d0d1a;
+  --bg2:#12101f;
+  --rose:#c0395a;
+  --rose-light:#e8607a;
+  --rose-pale:#f9d0d8;
+  --gold:#d4a24c;
+  --cream:#fff8f0;
+  --text:#f5e6ea;
+  --muted:#a08090;
+  --glow:rgba(192,57,90,0.35)
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);
+  font-family:'Georgia',serif;color:var(--text)}
+.screen{
+  position:fixed;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:28px 22px;opacity:0;pointer-events:none;
+  transition:opacity 0.8s ease;overflow:hidden;z-index:5
+}
+.screen.active{opacity:1;pointer-events:all}
+
+/* ── RAIN WORDS ─────────────────────────────────────────────── */
+#rain{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.rain-word{
+  position:absolute;top:-60px;
+  font-family:'Georgia',serif;
+  font-style:italic;
+  color:var(--rose-light);
+  opacity:0;
+  animation:rainFall linear infinite;
+  text-shadow:0 0 12px var(--glow);
+  letter-spacing:1px
+}
+@keyframes rainFall{
+  0%{transform:translateY(-60px);opacity:0}
+  8%{opacity:.85}
+  88%{opacity:.7}
+  100%{transform:translateY(110vh);opacity:0}
+}
+
+/* ── PETALS ─────────────────────────────────────────────────── */
+#petals{position:fixed;inset:0;z-index:2;pointer-events:none}
+.petal{
+  position:absolute;top:-20px;
+  font-size:14px;opacity:0;
+  animation:petalDrift linear infinite
+}
+@keyframes petalDrift{
+  0%{transform:translateY(-20px) rotate(0deg) translateX(0);opacity:0}
+  10%{opacity:.7}
+  90%{opacity:.5}
+  100%{transform:translateY(105vh) rotate(540deg) translateX(30px);opacity:0}
+}
+
+/* ── SCREEN 1 – OPENING ─────────────────────────────────────── */
+#s1{z-index:10}
+.s1-inner{
+  text-align:center;position:relative;z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+  max-width:360px;width:100%
+}
+.rose-icon{font-size:64px;animation:roseFloat 3s ease-in-out infinite}
+@keyframes roseFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.05)}}
+.s1-title{
+  font-size:13px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:-8px
+}
+.s1-name{
+  font-size:44px;font-weight:400;color:var(--rose-pale);
+  text-shadow:0 0 24px var(--glow),0 0 48px rgba(192,57,90,0.2);
+  line-height:1.1
+}
+.s1-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:280px}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--rose),transparent);margin:0 auto}
+.btn-open-s1{
+  padding:16px 36px;border-radius:50px;
+  background:linear-gradient(135deg,#8b1a32,#c0395a,#e8607a);
+  color:#fff;font-size:16px;font-weight:600;border:none;cursor:pointer;
+  box-shadow:0 6px 28px rgba(192,57,90,0.45);
+  font-family:inherit;letter-spacing:0.5px;
+  transition:transform 0.15s,box-shadow 0.15s
+}
+.btn-open-s1:active{transform:scale(0.96)}
+
+/* ── SCREEN 2 – ENVELOPE ────────────────────────────────────── */
+#s2{z-index:10;gap:16px}
+.s2-hint{font-size:13px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;position:relative;z-index:3}
+
+/* envelope */
+.env-scene{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:0;width:100%;max-width:360px}
+.env{width:220px;height:150px;position:relative;cursor:pointer;flex-shrink:0}
+.env-shadow{
+  position:absolute;bottom:-12px;left:10%;right:10%;height:20px;
+  background:radial-gradient(ellipse,rgba(192,57,90,0.3),transparent 70%);
+  filter:blur(6px)
+}
+.env-body{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#1e1228 0%,#2a1535 100%);
+  border-radius:6px 6px 12px 12px;
+  border:1px solid rgba(192,57,90,0.5);
+  overflow:hidden
+}
+.env-inner-left{
+  position:absolute;bottom:0;left:0;
+  width:0;height:0;
+  border-bottom:75px solid rgba(192,57,90,0.15);
+  border-right:110px solid transparent
+}
+.env-inner-right{
+  position:absolute;bottom:0;right:0;
+  width:0;height:0;
+  border-bottom:75px solid rgba(192,57,90,0.15);
+  border-left:110px solid transparent
+}
+.env-flap{
+  position:absolute;top:0;left:0;right:0;z-index:4;
+  width:0;height:0;
+  border-left:110px solid transparent;
+  border-right:110px solid transparent;
+  border-top:80px solid #2a1535;
+  filter:drop-shadow(0 2px 4px rgba(192,57,90,0.2));
+  transform-origin:top center;
+  transition:transform 1s cubic-bezier(.4,0,.2,1)
+}
+.env-flap::after{
+  content:'';position:absolute;
+  border-left:110px solid transparent;
+  border-right:110px solid transparent;
+  border-top:80px solid transparent;
+  border-top-color:rgba(192,57,90,0.3);
+  top:-80px;left:-110px
+}
+.env-flap.open{transform:rotateX(180deg)}
+.env-seal{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:36px;height:36px;border-radius:50%;
+  background:radial-gradient(circle,#c0395a,#8b1a32);
+  border:1.5px solid rgba(255,200,200,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;z-index:5;
+  box-shadow:0 0 12px var(--glow);
+  transition:opacity 0.3s
+}
+
+/* letter */
+.letter{
+  width:100%;
+  background:linear-gradient(160deg,#1a0f20,#221028);
+  border-radius:12px;
+  padding:24px 20px;
+  border:1px solid rgba(192,57,90,0.25);
+  box-shadow:0 12px 48px rgba(0,0,0,0.5),inset 0 0 40px rgba(192,57,90,0.04);
+  max-height:50vh;overflow-y:auto;
+  transform:translateY(50px);opacity:0;
+  transition:transform 0.9s cubic-bezier(.4,0,.2,1),opacity 0.9s ease;
+  position:relative;z-index:3;margin-top:-8px
+}
+.letter.show{transform:translateY(0);opacity:1}
+.letter::before{
+  content:'';position:absolute;top:0;left:24px;right:24px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(192,57,90,0.4),transparent)
+}
+.letter-salutation{
+  font-size:18px;color:var(--rose-light);
+  margin-bottom:14px;font-style:italic;
+  text-shadow:0 0 12px var(--glow)
+}
+.letter-text{
+  font-size:14.5px;color:#ddc8d0;line-height:1.85;
+  min-height:50px
+}
+.cursor{
+  display:inline-block;width:1.5px;height:1em;
+  background:var(--rose-light);
+  animation:blink .55s step-end infinite;vertical-align:text-bottom
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* letter scrollbar */
+.letter::-webkit-scrollbar{width:3px}
+.letter::-webkit-scrollbar-track{background:transparent}
+.letter::-webkit-scrollbar-thumb{background:var(--rose);border-radius:2px}
+
+/* floating hearts in letter screen */
+.fh-wrap{position:fixed;inset:0;pointer-events:none;z-index:4}
+.fh{position:absolute;bottom:-30px;animation:riseH linear infinite}
+@keyframes riseH{
+  0%{transform:translateY(0) scale(.5) rotate(-10deg);opacity:0}
+  10%{opacity:.7}
+  100%{transform:translateY(-105vh) scale(1.1) rotate(15deg);opacity:0}
+}
+
+/* sparkle */
+.sparkle{position:fixed;pointer-events:none;z-index:20;animation:sp 0.9s ease forwards;font-size:14px}
+@keyframes sp{0%{transform:scale(0) rotate(0);opacity:1}60%{transform:scale(1.3) rotate(200deg);opacity:.8}100%{transform:scale(0) rotate(360deg);opacity:0}}
+
+/* glow orbs */
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:orbPulse ease-in-out infinite}
+@keyframes orbPulse{0%,100%{opacity:.18;transform:scale(1)}50%{opacity:.3;transform:scale(1.08)}}
+</style>
+</head>
+<body>
+
+<!-- ambient orbs -->
+<div class="orb" style="width:280px;height:280px;top:-80px;right:-80px;background:#c0395a;animation-duration:6s"></div>
+<div class="orb" style="width:220px;height:220px;bottom:-60px;left:-60px;background:#8b1a32;animation-duration:8s;animation-delay:-3s"></div>
+<div class="orb" style="width:160px;height:160px;top:40%;left:60%;background:#d4a24c;opacity:.08;animation-duration:10s;animation-delay:-5s"></div>
+
+<!-- YouTube background audio -->
+<div id="ytWrap" style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;z-index:0;pointer-events:none">
+  <iframe id="ytPlayer" width="1" height="1" frameborder="0"
+    src="https://www.youtube.com/embed/FirJe3W2Lf8?autoplay=1&loop=1&playlist=FirJe3W2Lf8&controls=0&mute=0&playsinline=1"
+    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+<!-- unmute button shown if browser blocks autoplay -->
+<button id="playBtn" onclick="tryPlay()" style="
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  z-index:9999;display:none;
+  padding:12px 28px;border-radius:50px;
+  background:linear-gradient(135deg,#8b1a32,#c0395a);
+  color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;
+  box-shadow:0 4px 20px rgba(192,57,90,0.5);font-family:inherit;letter-spacing:0.3px
+">🎵 اضغط لتشغيل الأغنية</button>
+
+<!-- rain of words -->
+<div id="rain"></div>
+
+<!-- petals -->
+<div id="petals"></div>
+
+<!-- ── SCREEN 1 ── -->
+<div class="screen active" id="s1">
+  <div class="s1-inner">
+    <div class="rose-icon">🌹</div>
+    <p class="s1-title">A message for</p>
+    <h1 class="s1-name">Roaa</h1>
+    <div class="divider"></div>
+    <p class="s1-sub">Some feelings are too big to stay silent.<br>This is one of them.</p>
+    <button class="btn-open-s1" onclick="goToS2()">Open the Letter 💌</button>
+  </div>
+</div>
+
+<!-- ── SCREEN 2 ── -->
+<div class="screen" id="s2">
+  <div class="fh-wrap" id="fhWrap"></div>
+  <div class="env-scene">
+    <p class="s2-hint">Tap to open ✦</p>
+    <div class="env" id="envBox" onclick="openEnvelope()">
+      <div class="env-shadow"></div>
+      <div class="env-body">
+        <div class="env-inner-left"></div>
+        <div class="env-inner-right"></div>
+        <div class="env-seal" id="envSeal">🌹</div>
+      </div>
+      <div class="env-flap" id="envFlap"></div>
+    </div>
+    <div class="letter" id="letterBox">
+      <div class="letter-salutation">Roaa,</div>
+      <div class="letter-text" id="letterText"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── YOUTUBE AUDIO ────────────────────────────────────────────────────────
+// Show tap-to-play button after short delay if autoplay was blocked
+setTimeout(()=>{
+  const btn=document.getElementById('playBtn');
+  if(btn) btn.style.display='block';
+  setTimeout(()=>{if(btn)btn.style.display='none'},8000);
+},2500);
+function tryPlay(){
+  const f=document.getElementById('ytPlayer');
+  // reload with autoplay
+  f.src=f.src.replace('autoplay=0','autoplay=1');
+  if(!f.src.includes('autoplay=1')) f.src=f.src+'&autoplay=1';
+  document.getElementById('playBtn').style.display='none';
+}
+
+// ── RAIN WORDS ────────────────────────────────────────────────────────────
+const WORDS=['RORO','RO2RO2','MAMA','ROAA','BENTY','26/4/2024'];
+const rainWrap=document.getElementById('rain');
+const fontSizes=[13,15,12,17,14,11,16];
+
+function spawnWord(){
+  const w=document.createElement('div');
+  w.className='rain-word';
+  w.textContent=WORDS[Math.floor(Math.random()*WORDS.length)];
+  const size=fontSizes[Math.floor(Math.random()*fontSizes.length)];
+  w.style.cssText=`
+    left:${Math.random()*95}%;
+    font-size:${size}px;
+    animation-duration:${6+Math.random()*8}s;
+    animation-delay:${Math.random()*2}s;
+    opacity:0;
+    letter-spacing:${1+Math.random()*3}px
+  `;
+  rainWrap.appendChild(w);
+  const dur=(parseFloat(w.style.animationDuration)+parseFloat(w.style.animationDelay))*1000+500;
+  setTimeout(()=>{w.remove();spawnWord()},dur);
+}
+for(let i=0;i<18;i++){
+  setTimeout(spawnWord, i*300);
+}
+
+// ── PETALS ────────────────────────────────────────────────────────────────
+const petalWrap=document.getElementById('petals');
+const petalEmojis=['🌸','🌹','🥀','✨','💗','❤️','🌷'];
+function spawnPetal(){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.textContent=petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+  const size=10+Math.random()*14;
+  const dur=7+Math.random()*9;
+  p.style.cssText=`
+    left:${Math.random()*100}%;
+    font-size:${size}px;
+    animation-duration:${dur}s;
+    animation-delay:${-Math.random()*dur}s
+  `;
+  petalWrap.appendChild(p);
+  setTimeout(()=>{p.remove();spawnPetal()},dur*1000+2000);
+}
+for(let i=0;i<22;i++) setTimeout(spawnPetal, i*250);
+
+// ── TRANSITION ────────────────────────────────────────────────────────────
+function goToS2(){
+  document.getElementById('s1').classList.remove('active');
+  document.getElementById('s2').classList.add('active');
+  startFloatingHearts();
+}
+
+// ── FLOATING HEARTS ───────────────────────────────────────────────────────
+function startFloatingHearts(){
+  const wrap=document.getElementById('fhWrap');
+  const hEmojis=['❤️','🌹','💗','💕','✨','🥀'];
+  setInterval(()=>{
+    const h=document.createElement('div');
+    h.className='fh';
+    h.textContent=hEmojis[Math.floor(Math.random()*hEmojis.length)];
+    h.style.cssText=`left:${Math.random()*100}%;font-size:${12+Math.random()*16}px;
+      animation-duration:${5+Math.random()*6}s`;
+    wrap.appendChild(h);
+    setTimeout(()=>h.remove(),11000);
+  },500);
+}
+
+// ── ENVELOPE ─────────────────────────────────────────────────────────────
+let opened=false;
+function openEnvelope(){
+  if(opened)return;
+  opened=true;
+  document.getElementById('envFlap').classList.add('open');
+  document.getElementById('envSeal').style.opacity='0';
+  setTimeout(()=>{
+    document.getElementById('letterBox').classList.add('show');
+    startTypewriter();
+  },1000);
+}
+
+// ── MESSAGE ───────────────────────────────────────────────────────────────
+const MESSAGE=`I'm sorry for the pain I caused and for the mistakes that pushed us apart.
+
+No matter what happened between us, there is one thing that never changed: I love you.
+
+I loved you yesterday, I love you today, and a part of me will probably always love you.
+
+The memories we shared, the moments we lived, and the place you hold in my heart are things I could never forget.
+
+I'm not writing this to pressure you or ask for anything. I just wanted you to know how much you mean to me and how deeply sorry I am.
+
+Thank you for every smile, every conversation, and every memory.
+
+You'll always be special to me.`;
+
+function startTypewriter(){
+  const el=document.getElementById('letterText');
+  let i=0;
+  el.innerHTML='<span class="cursor"></span>';
+  const iv=setInterval(()=>{
+    if(i<MESSAGE.length){
+      el.innerHTML=MESSAGE.slice(0,i+1).replace(/\n/g,'<br>')+'<span class="cursor"></span>';
+      i++;
+      if(Math.random()<0.03) spawnSparkle();
+    } else {
+      el.innerHTML=MESSAGE.replace(/\n/g,'<br>');
+      clearInterval(iv);
+    }
+  },40);
+}
+
+function spawnSparkle(){
+  const s=document.createElement('div');
+  s.className='sparkle';
+  s.textContent=['✨','💗','🌟','❤️'][Math.floor(Math.random()*4)];
+  s.style.left=Math.random()*90+'%';
+  s.style.top=Math.random()*90+'%';
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),900);
+}
+</script>
+</body>
+</html>
